@@ -1,0 +1,27 @@
+.status-tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.status-in-progress {
+  background: #d8e6c8;
+  color: #4d6635;
+}
+
+.status-proof-ready {
+  background: #f0e0c4;
+  color: #7a5a1f;
+}
+
+.status-completed {
+  background: #d8e2f0;
+  color: #2c5282;
+}
+
+.status-cancelled {
+  background: #f0d4cf;
+  color: #8a3a2a;
+}

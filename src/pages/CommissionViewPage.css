@@ -1,0 +1,250 @@
+.commission-view-page {
+  padding: 24px 0 80px;
+}
+
+.commission-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.breadcrumb {
+  font-size: 0.85rem;
+  color: #888;
+  margin-bottom: 16px;
+}
+
+.breadcrumb a {
+  color: #888;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: #1a1a1a;
+}
+
+.commission-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 24px;
+}
+
+.commission-header h1 {
+  font-size: 1.65rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #1a1a1a;
+}
+
+.commission-meta {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.commission-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+}
+
+.commission-main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.commission-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.info-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.info-card h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #1a1a1a;
+}
+
+.info-card p {
+  font-size: 0.92rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.references-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.ref-thumb {
+  border: 1px dashed #c8c8c8;
+  background: #fafafa;
+  height: 90px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 0.75rem;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.details-grid strong {
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+/* Chat preview */
+.chat-preview {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #c8c8c8;
+  flex-shrink: 0;
+}
+
+.artist-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.artist-stats {
+  font-size: 0.78rem;
+  color: #888;
+}
+
+.chat-message {
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.chat-message p {
+  font-size: 0.88rem;
+  color: #1a1a1a;
+  line-height: 1.5;
+}
+
+.chat-time {
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 6px;
+}
+
+.open-chat-btn {
+  display: block;
+  width: 100%;
+  background: #fff;
+  color: #1a1a1a;
+  padding: 10px;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+}
+
+.open-chat-btn:hover {
+  background: #f5f5f5;
+}
+
+/* Approval card */
+.approval-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.approval-card h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #1a1a1a;
+}
+
+.approval-card p {
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.approve-btn {
+  width: 100%;
+  background: #d4d4d4;
+  color: #888;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: not-allowed;
+  margin-bottom: 12px;
+}
+
+.protection-note {
+  font-size: 0.78rem;
+  color: #888;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .commission-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .commission-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .commission-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .references-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+}

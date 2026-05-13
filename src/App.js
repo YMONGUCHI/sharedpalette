@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
+
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import BrowsePage from './pages/BrowsePage';
+import ProductPage from './pages/ProductPage';
+import CheckoutPage from './pages/CheckoutPage';
+import OrderHistoryPage from './pages/OrderHistoryPage';
+import CommissionViewPage from './pages/CommissionViewPage';
+import InboxPage from './pages/InboxPage';
+import SellerDashboardPage from './pages/SellerDashboardPage';
+import CommissionWorkspacePage from './pages/CommissionWorkspacePage';
+import HelpPage from './pages/HelpPage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/browse" element={<BrowsePage />} />
+      <Route path="/product/:id" element={<ProductPage />} />
+      <Route path="/checkout" element={<CheckoutPage />} />
+      <Route path="/orders" element={<OrderHistoryPage />} />
+      <Route path="/orders/:id" element={<CommissionViewPage />} />
+      <Route path="/inbox" element={<InboxPage />} />
+      <Route path="/seller" element={<SellerDashboardPage />} />
+      <Route path="/seller/commission/:id" element={<CommissionWorkspacePage />} />
+      <Route path="/help" element={<HelpPage />} />
+    </Routes>
   );
 }
 
