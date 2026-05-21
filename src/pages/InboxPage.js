@@ -29,7 +29,12 @@ function InboxPage() {
               <h2>Messages</h2>
               <span className="unread-count">{unreadCount} unread</span>
             </div>
-            <input type="text" placeholder="🔍 Search messages..." className="conversation-search" />
+            <input
+              type="text"
+              placeholder="🔍 Search messages..."
+              className="conversation-search"
+              aria-label="Search messages"
+            />
 
             {sampleConversations.map((convo) => (
               <button
@@ -77,6 +82,7 @@ function InboxPage() {
                 type="text"
                 placeholder="Type a message..."
                 value={draft}
+                aria-label="Type a message"
                 onChange={(e) => setDraft(e.target.value)}
                 onKeyDown={(e) => { if (e.key === 'Enter') handleSend(); }}
               />

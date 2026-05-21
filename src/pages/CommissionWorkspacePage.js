@@ -133,6 +133,7 @@ function CommissionWorkspacePage() {
                     type="text"
                     placeholder="Type a message..."
                     value={draft}
+                    aria-label="Type a message"
                     onChange={(e) => setDraft(e.target.value)}
                     onKeyDown={(e) => { if (e.key === 'Enter') handleSend(); }}
                   />

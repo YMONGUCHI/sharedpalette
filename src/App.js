@@ -1,5 +1,6 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom'; // Routing for the single-page app
 
+// Import all page components used in the routes below
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import BrowsePage from './pages/BrowsePage';
@@ -13,6 +14,7 @@ import CommissionWorkspacePage from './pages/CommissionWorkspacePage';
 import HelpPage from './pages/HelpPage';
 
 function App() {
+  // Assign a route for each page component
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
