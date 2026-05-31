@@ -1,40 +1,65 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import StatusTag from '../components/StatusTag';
 import './CommissionWorkspacePage.css';
 
+const CURRENT_USER_ID = 1; // Hardcoded as Maya L. for now (a seller)
+
 function CommissionWorkspacePage() {
   const { id } = useParams();
+  const [order, setOrder] = useState(null);
+  const [buyer, setBuyer] = useState(null);
+  const [messages, setMessages] = useState([]);
   const [draft, setDraft] = useState('');
 
-  // Sample data for the workspace
-  const buyer = {
-    name: "John D.",
-    priorOrders: 3
-  };
+  // Fetch the order
+  useEffect(() => {
+    fetch(`http://localhost:3001/orders/${id}`)
+      .then(response => response.json())
+      .then(data => setOrder(data));
+  }, [id]);
 
-  const brief = "Watercolor portrait of dog Bailey. 8×10\", archival paper, signed. Turnaround 2-3 weeks.";
-  const deadline = "Apr 15, 2026";
-  const budget = 85;
+  // Once we have the order, fetch the buyer
+  useEffect(() => {
+    if (!order) return;
+    fetch(`http://localhost:3001/users/${order.buyer_id}`)
+      .then(response => response.json())
+      .then(data => setBuyer(data));
+  }, [order]);
 
-  const versions = [
-    { label: "Sketch draft v2", note: "2 hours ago · buyer reviewing", version: "v2" },
-    { label: "Sketch draft v1", note: "Yesterday · revisions requested", version: "v1" }
-  ];
-
-  const chatMessages = [
-    { from: "them", text: "Thanks again for picking me!" },
-    { from: "me", text: "Happy to! Excited to see" },
-    { from: "them", text: "Working on sketches now" },
-    { from: "me", text: "Looking forward to the v3" },
-    { from: "them", text: "Should have v3 by tomorrow. Thanks for your patience!" }
-  ];
+  // Fetch messages for this order
+  useEffect(() => {
+    fetch('http://localhost:3001/messages')
+      .then(response => response.json())
+      .then(data => {
+        const filtered = data.filter(m => m.order_id === parseInt(id));
+        setMessages(filtered);
+      });
+  }, [id]);
 
   function handleSend() {
-    if (!draft.trim()) return;
-    console.log('Send to buyer:', draft);
-    setDraft('');
+    if (!draft.trim() || !order) return;
+
+    fetch('http://localhost:3001/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        sender_id: CURRENT_USER_ID,
+        receiver_id: order.buyer_id,
+        order_id: parseInt(id),
+        content: draft,
+      }),
+    })
+      .then(response => response.json())
+      .then(newMessage => {
+        setMessages([...messages, newMessage]);
+        setDraft('');
+      });
+  }
+
+  if (!order || !buyer) {
+    return <div>Loading...</div>;
   }
 
   return (
@@ -49,10 +74,12 @@ function CommissionWorkspacePage() {
 
           <div className="workspace-header">
             <div>
-              <h1>Working on: Watercolor portrait for {buyer.name}</h1>
-              <p className="workspace-meta">Order #{id} · Deadline: {deadline} · ${budget}</p>
+              <h1>Working on commission for {buyer.name}</h1>
+              <p className="workspace-meta">
+                Order #{id} · Deadline: {order.deadline ? new Date(order.deadline).toLocaleDateString() : 'N/A'} · ${order.price}
+              </p>
             </div>
-            <StatusTag status="In progress" />
+            <StatusTag status={order.status} />
           </div>
 
           <div className="workspace-grid">
@@ -65,7 +92,7 @@ function CommissionWorkspacePage() {
                   <div className="avatar"></div>
                   <div>
                     <p className="buyer-name">{buyer.name}</p>
-                    <p className="buyer-meta">{buyer.priorOrders} prior orders</p>
+                    <p className="buyer-meta">{buyer.email}</p>
                   </div>
                 </div>
                 <button className="view-profile-btn">View profile</button>
@@ -73,7 +100,7 @@ function CommissionWorkspacePage() {
 
               <div className="info-card">
                 <h3>Brief</h3>
-                <p>{brief}</p>
+                <p>{order.brief}</p>
               </div>
 
               <div className="info-card">
@@ -105,15 +132,9 @@ function CommissionWorkspacePage() {
 
               <div className="info-card">
                 <h3>Version history</h3>
-                {versions.map((v, index) => (
-                  <div key={index} className="version-row">
-                    <div className="version-thumb">{v.version}</div>
-                    <div>
-                      <p className="version-label">{v.label}</p>
-                      <p className="version-note">{v.note}</p>
-                    </div>
-                  </div>
-                ))}
+                <p style={{ fontSize: '0.85rem', color: '#888' }}>
+                  No proofs uploaded yet
+                </p>
               </div>
             </div>
 
@@ -122,9 +143,12 @@ function CommissionWorkspacePage() {
               <div className="info-card chat-card">
                 <h3>Chat with {buyer.name.split(' ')[0]}</h3>
                 <div className="workspace-messages">
-                  {chatMessages.map((msg, index) => (
-                    <div key={index} className={msg.from === 'me' ? 'msg-bubble msg-me' : 'msg-bubble msg-them'}>
-                      {msg.text}
+                  {messages.map((msg) => (
+                    <div
+                      key={msg.id}
+                      className={msg.sender_id === CURRENT_USER_ID ? 'msg-bubble msg-me' : 'msg-bubble msg-them'}
+                    >
+                      {msg.content}
                     </div>
                   ))}
                 </div>

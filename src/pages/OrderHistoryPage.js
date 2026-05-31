@@ -1,13 +1,21 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import AccountSidebar from '../components/AccountSidebar';
 import StatusTag from '../components/StatusTag';
-import sampleOrders from '../data/sampleOrders';
 import './OrderHistoryPage.css';
 
 function OrderHistoryPage() {
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3001/orders')
+      .then(response => response.json())
+      .then(data => setOrders(data));
+  }, []);
+
   return (
     <div>
       <Header />
@@ -38,17 +46,17 @@ function OrderHistoryPage() {
                 <span></span>
               </div>
 
-              {sampleOrders.map((order) => (
+              {orders.map((order) => (
                 <div key={order.id} className="order-row">
                   <div className="order-item">
                     <div className="order-thumb">[img]</div>
                     <div>
-                      <p className="order-title">{order.title}</p>
-                      <p className="order-artist">by {order.artist}</p>
+                      <p className="order-title">{order.brief}</p>
+                      <p className="order-artist">Listing #{order.listing_id}</p>
                     </div>
                   </div>
                   <span className="order-id">#{order.id}</span>
-                  <span className="order-date">{order.date}</span>
+                  <span className="order-date">{new Date(order.created_at).toLocaleDateString()}</span>
                   <StatusTag status={order.status} />
                   <Link className="order-view" to={`/orders/${order.id}`}>View →</Link>
                 </div>

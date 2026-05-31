@@ -1,9 +1,17 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import featuredListings from '../data/featuredListings';
 import ListingCard from './ListingCard';
 import './FeaturedArtists.css';
 
 function FeaturedArtists() {
+  const [featuredListings, setFeaturedListings] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3001/listings')
+      .then(response => response.json())
+      .then(data => setFeaturedListings(data.slice(0, 4)));
+  }, []);
+
   return (
     <section className="featured-artists">
       <div className="featured-inner">

@@ -1,24 +1,24 @@
 .site-header {
-  background: #fff;
-  border-bottom: 1px solid #e5e5e5;
-  padding: 16px 0;
+  background: #fff;                       /* white background */
+  border-bottom: 1px solid #e5e5e5;       /* thin light gray line at the bottom */
+  padding: 16px 0;                          /* space above and below the content */
 }
 
 .header-inner {
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1200px;                        /* never wider than 1200px */
+  margin: 0 auto;                           /* center horizontally */
   padding: 0 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 32px;
+  display: flex;                            /* arrange children in a row */
+  align-items: center;                      /* center children vertically */
+  justify-content: space-between;           /* push children to opposite ends */
+  gap: 32px;                                /* 32px between children */
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1a1a1a;
-  text-decoration: none;
+  font-size: 1.5rem;                        /* logo text size */
+  font-weight: 700;                         /* bold */
+  color: #1a1a1a;                         /* near-black text */
+  text-decoration: none;                    /* remove the default underline */
 }
 
 .main-nav {
@@ -26,13 +26,13 @@
   gap: 24px;
 }
 
-.main-nav a {
+.main-nav a {                               /* descendant selector */
   color: #333;
   text-decoration: none;
   font-size: 0.95rem;
 }
 
-.main-nav a:hover {
+.main-nav a:hover {                         /* styles applied when hovering over a nav link */
   color: #000;
   text-decoration: underline;
 }
@@ -41,7 +41,7 @@
   background: #1a1a1a;
   color: #fff;
   padding: 8px 16px;
-  border-radius: 6px;
+  border-radius: 6px;                       /* rounded corners */
   text-decoration: none;
   font-size: 0.9rem;
 }
@@ -50,7 +50,7 @@
   background: #333;
 }
 
-/* Responsive */
+/* Mobile and tablet adjustments */
 @media (max-width: 768px) {
   .header-inner {
     gap: 16px;
@@ -58,8 +58,8 @@
   }
 
   .main-nav {
-    order: 3;
-    width: 100%;
+    order: 3;                               /* push to last position so it wraps to its own row */
+    width: 100%;                            /* take the full row width */
     justify-content: center;
     gap: 16px;
   }

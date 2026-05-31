@@ -1,13 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // Importing eseEffect for backend support now
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ListingCard from '../components/ListingCard';
-import allListings from '../data/allListings';
+// import allListings from '../data/allListings'; // No longer Need this mock data that we used for frontend dev
 import './BrowsePage.css';
 
 
 function BrowsePage() {
+    const [allListings, setAllListings] = useState([]);
+
+    useEffect(() => {
+      fetch('http://localhost:3001/listings')
+      .then(response => response.json())
+      .then(data => setAllListings(data));
+    }, []);
+
     const [checkedCategories, setCheckedCategories] = useState([]);
     const [checkedMediums, setCheckedMediums] = useState([]);
     const [checkedRatings, setCheckedRatings] = useState([]);
