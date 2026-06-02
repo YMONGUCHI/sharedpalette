@@ -11,7 +11,7 @@ function BrowsePage() {
     const [allListings, setAllListings] = useState([]);
 
     useEffect(() => {
-      fetch('http://localhost:3001/listings')
+      fetch(`${process.env.REACT_APP_API_URL}/listings`)
       .then(response => response.json())
       .then(data => setAllListings(data));
     }, []);

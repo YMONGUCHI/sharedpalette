@@ -15,7 +15,7 @@ function CommissionWorkspacePage() {
 
   // Fetch the order
   useEffect(() => {
-    fetch(`http://localhost:3001/orders/${id}`)
+    fetch(`${process.env.REACT_APP_API_URL}/orders/${id}`)
       .then(response => response.json())
       .then(data => setOrder(data));
   }, [id]);
@@ -23,14 +23,14 @@ function CommissionWorkspacePage() {
   // Once we have the order, fetch the buyer
   useEffect(() => {
     if (!order) return;
-    fetch(`http://localhost:3001/users/${order.buyer_id}`)
+    fetch(`${process.env.REACT_APP_API_URL}/users/${order.buyer_id}`)
       .then(response => response.json())
       .then(data => setBuyer(data));
   }, [order]);
 
   // Fetch messages for this order
   useEffect(() => {
-    fetch('http://localhost:3001/messages')
+    fetch(`${process.env.REACT_APP_API_URL}/messages`)
       .then(response => response.json())
       .then(data => {
         const filtered = data.filter(m => m.order_id === parseInt(id));
@@ -41,7 +41,7 @@ function CommissionWorkspacePage() {
   function handleSend() {
     if (!draft.trim() || !order) return;
 
-    fetch('http://localhost:3001/messages', {
+    fetch(`${process.env.REACT_APP_API_URL}/messages`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

@@ -11,7 +11,7 @@ function CommissionViewPage() {
   const [order, setOrder] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/orders/${id}`)
+    fetch(`${process.env.REACT_APP_API_URL}/orders/${id}`)
       .then(response => response.json())
       .then(data => setOrder(data));
   }, [id]);

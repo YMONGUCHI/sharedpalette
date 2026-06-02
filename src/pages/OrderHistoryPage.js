@@ -11,7 +11,7 @@ function OrderHistoryPage() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/orders')
+    fetch(`${process.env.REACT_APP_API_URL}/orders`)
       .then(response => response.json())
       .then(data => setOrders(data));
   }, []);

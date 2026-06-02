@@ -11,7 +11,7 @@ function InboxPage() {
   const [draft, setDraft] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:3001/messages')
+    fetch(`${process.env.REACT_APP_API_URL}/messages`)
       .then(response => response.json())
       .then(data => {
         setMessages(data);
@@ -42,7 +42,7 @@ function InboxPage() {
   function handleSend() {
     if (!draft.trim() || !activeConvo) return;
 
-    fetch('http://localhost:3001/messages', {
+    fetch(`${process.env.REACT_APP_API_URL}/messages`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

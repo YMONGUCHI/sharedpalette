@@ -9,7 +9,7 @@ function ProductPage() {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/listings/${id}`)
+    fetch(`${process.env.REACT_APP_API_URL}/listings/${id}`)
       .then(response => response.json())
       .then(data => setProduct(data));
   }, [id]);
