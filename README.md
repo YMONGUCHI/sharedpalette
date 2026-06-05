@@ -8,7 +8,7 @@ Project for INF 124: Internet Application Engineering
 
 ## Live Demo
 
-- **Frontend**: http://sharedpalette-frontend-yasut.s3-website-us-west-1.amazonaws.com
+- **Frontend**: https://d1mpjs6zvo988o.cloudfront.net
 - **Backend API**: http://sharedpalette-env.eba-23gtgcbe.us-west-1.elasticbeanstalk.com
 - **Frontend repo**: [github.com/YMONGUCHI/sharedpalette](https://github.com/YMONGUCHI/sharedpalette)
 - **Backend repo**: [github.com/YMONGUCHI/sharedpalette-backend.git](https://github.com/YMONGUCHI/sharedpalette-backend.git)
@@ -22,6 +22,7 @@ Project for INF 124: Internet Application Engineering
 - React Router v7 for client-side routing
 - Plain CSS (no framework)
 - Hosted on AWS S3 with static website hosting
+- Distributed via AWS CloudFront for HTTPS
 
 **Backend**
 - Node.js with Express
@@ -43,7 +44,7 @@ Project for INF 124: Internet Application Engineering
 
 ## Architecture
 
-SharedPalette follows a standard three-tier architecture: a static React frontend served from S3, a Node.js + Express backend on Elastic Beanstalk, and a PostgreSQL database on RDS. The frontend communicates with the backend over HTTP, and the backend communicates with the database over SQL.
+SharedPalette follows a standard three-tier architecture: a static React frontend served from S3 via CloudFront, a Node.js + Express backend on Elastic Beanstalk, and a PostgreSQL database on RDS. The frontend is served over HTTPS through CloudFront. The frontend communicates with the backend over HTTP, and the backend communicates with the database over SQL.
 
 ### Request Flow
 
@@ -126,8 +127,8 @@ The full set of wireframes from Assignment 1 is available as a PDF: [wireframes.
 - ✅ Backend on a single AWS service: Elastic Beanstalk
 - ✅ Frontend served publicly: S3 static website hosting
 - ✅ Environment variables stored securely: set as EB environment properties, not in code
-- ⬜ Public HTTPS via ACM certificate: currently HTTP only, planned addition
-- 🟡 CloudWatch logs: default EB logging on, custom log streaming not configured
+- 🟡 Public HTTPS via ACM certificate: frontend served over HTTPS via CloudFront using AWS's default certificate (`*.cloudfront.net`). A custom ACM certificate would require purchasing a domain, which was out of scope for the project budget. HTTPS encryption is provided regardless.
+- ✅ CloudWatch logs: log streaming enabled, logs visible in CloudWatch Log Management
 
 ## Project Structure
 
