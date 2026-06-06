@@ -29,6 +29,8 @@ Project for INF 124: Internet Application Engineering
 - `pg` library for PostgreSQL connection pooling
 - `cors` middleware for cross-origin requests
 - `dotenv` for environment variable management
+- `bcrypt` for password hashing
+- `jsonwebtoken` for JWT-based authentication
 - Hosted on AWS Elastic Beanstalk
 
 **Database**
@@ -84,7 +86,7 @@ The full set of wireframes from Assignment 1 is available as a PDF: [wireframes.
 - ✅ APIs and Web Services: RESTful API with 20 endpoints (see API Endpoints section).
 - ✅ Data Storage and Retrieval: PostgreSQL on AWS RDS for persistent storage.
 - 🟡 Real-time Updates: messages append immediately to state after POST without page refresh, but not WebSocket-based.
-- ⬜ User Authentication and Authorization: login UI exists but functional auth not implemented; user IDs hardcoded.
+- ✅ User Authentication and Authorization: signup and login implemented with bcrypt-hashed passwords and JWT tokens. AuthContext stores the logged-in user globally. The `/me` endpoint demonstrates protected route enforcement via auth middleware. Per-user data scoping replaces previously hardcoded user IDs.
 - ⬜ Offline Functionality (PWA): not implemented.
 - ⬜ Social Media Integration (bonus): not implemented.
 - ⬜ Geolocation Services (bonus): not implemented.
@@ -116,7 +118,7 @@ The full set of wireframes from Assignment 1 is available as a PDF: [wireframes.
 4. ✅ Implement middleware for handling CORS (Cross-Origin Resource Sharing) and other necessary functionalities: `app.use(cors())` and `app.use(express.json())` in `index.js`.
 5. ✅ Connect your Node.js backend to the database of your choice (e.g., MongoDB, PostgreSQL, MySQL): PostgreSQL via `pg` library with connection pool, configured through environment variables, SSL enabled in production.
 6. ✅ Implement CRUD (Create, Read, Update, Delete) operations to interact with your database: full CRUD on all 4 resources.
-7. ⬜ Integrate authentication and authorization mechanisms if required for your application: not implemented in this version, see Modern Web App Requirements above.
+7. ✅ Integrate authentication and authorization mechanisms if required for your application: signup and login endpoints with bcrypt password hashing; JWT tokens for session management; auth middleware (`requireAuth`) verifies tokens on protected routes (e.g., `/me`). Role-based authorization across all endpoints is identified as a next step.
 8. ✅ Test the backend endpoints using tools like Postman or Insomnia to ensure they function correctly: all 20 endpoints tested in Postman during development.
 9. ✅ Once the backend is complete, connect it to your React frontend from Assignment 3 using HTTP requests (e.g., fetch or axios): fetch calls across 7 data-driven pages, base URL from `process.env.REACT_APP_API_URL`.
 10. ✅ Deploy your full-stack application to a cloud platform. AWS is recommended, but you can choose any platform you're comfortable with: Elastic Beanstalk (backend), S3 (frontend), RDS (database); see Deployment section.
@@ -142,6 +144,8 @@ sharedpalette/
 ├── src/
 │   ├── components/       (13 reusable components)
 │   ├── pages/            (11 page components)
+│   ├── context/
+│   │   └── AuthContext.js
 │   ├── styles/
 │   │   └── accessibility.css
 │   ├── App.js            (route table)
@@ -278,6 +282,12 @@ All endpoints return JSON. POST/PUT requests expect JSON bodies with `Content-Ty
 - `PUT /messages/:id`
 - `DELETE /messages/:id`
 
+### Authentication
+
+- `POST /signup` creates a new user with hashed password, returns JWT token
+- `POST /login` verifies credentials, returns JWT token
+- `GET /me` returns the logged-in user's info (requires `Authorization: Bearer <token>` header)
+
 ### Response patterns
 
 - GET endpoints return status 200 and either an array of rows or a single row object
@@ -388,7 +398,7 @@ The full-stack app is deployed to AWS in the N. California (us-west-1) region.
 4. Zip up `index.js`, `package.json`, `package-lock.json`, and `Procfile`
 5. Create an Elastic Beanstalk application and environment running the Node.js 24 platform on Amazon Linux 2023
 6. Pick `t3.micro` as the instance type (free tier eligible for new accounts)
-7. Set environment properties for `DB_USER`, `DB_HOST`, `DB_PASSWORD`, `DB_NAME`, `DB_PORT` (these populate `process.env` at runtime)
+7. Set environment properties for `DB_USER`, `DB_HOST`, `DB_PASSWORD`, `DB_NAME`, `DB_PORT`, `JWT_SECRET` (these populate `process.env` at runtime)
 8. Upload the zip file as the application source
 
 ### Database setup process
@@ -502,10 +512,7 @@ After all that, deployment finally worked end to end:
 
 ### Next steps (if I continued)
 
-- Implement basic auth (signup, login, JWT tokens, protected routes)
-- Add HTTPS via CloudFront + AWS Certificate Manager
+- Add custom domain + ACM certificate for branded HTTPS
 - Migrate to a PWA with offline support via service workers
-- Replace hardcoded `CURRENT_USER_ID` with real authenticated user IDs
 - Implement true real-time messaging via WebSockets
 - Build out the empty sidebar links (Dashboard, Commissions, Account Settings, Public Profile, Analytics)
-- Add CloudWatch log streaming for production monitoring

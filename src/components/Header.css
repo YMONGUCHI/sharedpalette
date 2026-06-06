@@ -50,6 +50,17 @@
   background: #333;
 }
 
+.auth-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-greeting {
+  font-size: 0.9rem;
+  color: #1a1a1a;
+}
+
 /* Mobile and tablet adjustments */
 @media (max-width: 768px) {
   .header-inner {

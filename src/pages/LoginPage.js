@@ -1,15 +1,52 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MinimalHeader from '../components/MinimalHeader';
+import { useAuth } from '../context/AuthContext';
 import './LoginPage.css';
 
 function LoginPage() {
   const [activeTab, setActiveTab] = useState('login');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e) {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log(`${activeTab} submitted:`, { email, password });
+    setError('');
+    setLoading(true);
+
+    const endpoint = activeTab === 'login' ? '/login' : '/signup';
+    const body = activeTab === 'login'
+      ? { email, password }
+      : { name, email, password, is_buyer: true, is_seller: true };
+
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}${endpoint}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || 'Something went wrong');
+        setLoading(false);
+        return;
+      }
+
+      // Save token + user via context
+      login(data.token, data.user);
+      navigate('/');
+    } catch (err) {
+      setError('Network error. Please try again.');
+      setLoading(false);
+    }
   }
 
   return (
@@ -36,6 +73,20 @@ function LoginPage() {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="login-form">
+
+            {activeTab === 'signup' && (
+              <label className="field">
+                <span>Name</span>
+                <input
+                  type="text"
+                  placeholder="Your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </label>
+            )}
+
             <label className="field">
               <span>Email</span>
               <input
@@ -43,6 +94,7 @@ function LoginPage() {
                 placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </label>
 
@@ -53,11 +105,14 @@ function LoginPage() {
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </label>
 
-            <button type="submit" className="submit-btn">
-              {activeTab === 'login' ? 'Log in' : 'Sign up'}
+            {error && <p className="login-error">{error}</p>}
+
+            <button type="submit" className="submit-btn" disabled={loading}>
+              {loading ? '...' : (activeTab === 'login' ? 'Log in' : 'Sign up')}
             </button>
           </form>
 

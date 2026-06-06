@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import { useAuth } from '../context/AuthContext';
 import './InboxPage.css';
 
-const CURRENT_USER_ID = 4; // Hardcoded as John D. for now (no auth yet)
-
 function InboxPage() {
+  const { user } = useAuth();
+  const CURRENT_USER_ID = user?.id;
+
   const [messages, setMessages] = useState([]);
   const [activeOrderId, setActiveOrderId] = useState(null);
   const [draft, setDraft] = useState('');
@@ -21,6 +23,20 @@ function InboxPage() {
         }
       });
   }, []);
+
+  // If not logged in, show a message
+  if (!user) {
+    return (
+      <div>
+        <Header />
+        <main className="inbox-page">
+          <div style={{ padding: '40px', textAlign: 'center' }}>
+            <p>Please <Link to="/login">log in</Link> to view your inbox.</p>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   // Group messages by order_id to form conversations
   const conversations = [];

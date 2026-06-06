@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import StatusTag from '../components/StatusTag';
+import { useAuth } from '../context/AuthContext';
 import './CommissionWorkspacePage.css';
 
-const CURRENT_USER_ID = 1; // Hardcoded as Maya L. for now (a seller)
-
 function CommissionWorkspacePage() {
+  const { user } = useAuth();
+  const CURRENT_USER_ID = user?.id;
+
   const { id } = useParams();
   const [order, setOrder] = useState(null);
   const [buyer, setBuyer] = useState(null);
@@ -37,6 +39,20 @@ function CommissionWorkspacePage() {
         setMessages(filtered);
       });
   }, [id]);
+
+  // If not logged in, show a message
+  if (!user) {
+    return (
+      <div>
+        <Header />
+        <main className="workspace-page">
+          <div style={{ padding: '40px', textAlign: 'center' }}>
+            <p>Please <Link to="/login">log in</Link> to view the workspace.</p>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   function handleSend() {
     if (!draft.trim() || !order) return;

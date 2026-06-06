@@ -2,21 +2,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { BrowserRouter } from 'react-router-dom'; // Routing wrapper for the single-page app
+import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 
 // Global styles
 import './index.css';
 import './styles/accessibility.css';
 
-import App from './App'; // root component
+import App from './App';
 
-// Mount the React app into the root div in public/index.html
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
-
