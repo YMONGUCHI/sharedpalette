@@ -9,7 +9,7 @@ Project for INF 124: Internet Application Engineering
 ## Live Demo
 
 - **Frontend**: https://d1mpjs6zvo988o.cloudfront.net
-- **Backend API**: http://sharedpalette-env.eba-23gtgcbe.us-west-1.elasticbeanstalk.com
+- **Backend API**: https://dns1np3p6h3lb.cloudfront.net
 - **Frontend repo**: [github.com/YMONGUCHI/sharedpalette](https://github.com/YMONGUCHI/sharedpalette)
 - **Backend repo**: [github.com/YMONGUCHI/sharedpalette-backend.git](https://github.com/YMONGUCHI/sharedpalette-backend.git)
 - **Demo video**: [Will add later]
@@ -129,7 +129,7 @@ The full set of wireframes from Assignment 1 is available as a PDF: [wireframes.
 - ✅ Backend on a single AWS service: Elastic Beanstalk
 - ✅ Frontend served publicly: S3 static website hosting
 - ✅ Environment variables stored securely: set as EB environment properties, not in code
-- 🟡 Public HTTPS via ACM certificate: frontend served over HTTPS via CloudFront using AWS's default certificate (`*.cloudfront.net`). A custom ACM certificate would require purchasing a domain, which was out of scope for the project budget. HTTPS encryption is provided regardless.
+- 🟡 Public HTTPS via ACM certificate: both frontend and backend are served over HTTPS via CloudFront distributions using AWS's default certificates (`*.cloudfront.net`). A custom ACM certificate would require purchasing a domain, which was out of scope for the project budget. HTTPS encryption is provided end-to-end regardless.
 - ✅ CloudWatch logs: log streaming enabled, logs visible in CloudWatch Log Management
 
 ## Project Structure
