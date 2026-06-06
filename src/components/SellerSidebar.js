@@ -15,7 +15,7 @@ function SellerSidebar() {
   ];
 
   return (
-    <aside className="seller-sidebar">
+    <aside className="seller-sidebar" aria-label="Seller navigation">
       <h3 className="sidebar-title">Seller menu</h3>
       <nav>
         {menuItems.map((item) => (

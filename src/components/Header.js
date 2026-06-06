@@ -9,7 +9,7 @@ function Header() {
                 <Link to="/" className="logo">SharedPalette</Link>
 
                 {/* Navigation bar */}
-                <nav className="main-nav">
+                <nav className="main-nav" aria-label="Main">
                     <Link to="/browse">Browse</Link>
                     <Link to="/#how-it-works">How it works</Link>
                     <Link to="/help">Help</Link>

@@ -14,7 +14,7 @@ function AccountSidebar() {
   ];
 
   return (
-    <aside className="account-sidebar">
+    <aside className="account-sidebar" aria-label="Account navigation">
       <h3 className="sidebar-title">My account</h3>
       <nav>
         {menuItems.map((item) => (

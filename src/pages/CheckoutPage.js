@@ -40,34 +40,34 @@ function CheckoutPage() {
               <h3>Contact</h3>
               <label className="field">
                 <span>Email</span>
-                <input type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <input type="email" placeholder="you@example.com" aria-label="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} />
               </label>
 
               <h3>Shipping address</h3>
-              <label className="field">
-                <input type="text" placeholder="Full name" value={fullName} onChange={(e) => setFullName(e.target.value)} />
-              </label>
-              <label className="field">
-                <input type="text" placeholder="Street address" value={street} onChange={(e) => setStreet(e.target.value)} />
-              </label>
+              <div className="field">
+                <input type="text" placeholder="Full name" aria-label="Full name" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+              </div>
+              <div className="field">
+                <input type="text" placeholder="Street address" aria-label="Street address" value={street} onChange={(e) => setStreet(e.target.value)} />
+              </div>
               <div className="field-row">
-                <input type="text" placeholder="City" value={city} onChange={(e) => setCity(e.target.value)} />
-                <input type="text" placeholder="State" value={state} onChange={(e) => setState(e.target.value)} />
-                <input type="text" placeholder="Zip" value={zip} onChange={(e) => setZip(e.target.value)} />
+                <input type="text" placeholder="City" aria-label="City" value={city} onChange={(e) => setCity(e.target.value)} />
+                <input type="text" placeholder="State" aria-label="State" value={state} onChange={(e) => setState(e.target.value)} />
+                <input type="text" placeholder="Zip" aria-label="Zip" value={zip} onChange={(e) => setZip(e.target.value)} />
               </div>
 
               <h3>Payment method</h3>
-              <label className="field">
-                <input type="text" placeholder="Card number" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} />
-              </label>
+              <div className="field">
+                <input type="text" placeholder="Card number" aria-label="Card number" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} />
+              </div>
               <div className="field-row">
-                <input type="text" placeholder="MM / YY" value={expiry} onChange={(e) => setExpiry(e.target.value)} />
-                <input type="text" placeholder="CVV" value={cvv} onChange={(e) => setCvv(e.target.value)} />
+                <input type="text" placeholder="MM / YY" aria-label="MM / YY" value={expiry} onChange={(e) => setExpiry(e.target.value)} />
+                <input type="text" placeholder="CVV" aria-label="CVV" value={cvv} onChange={(e) => setCvv(e.target.value)} />
               </div>
             </form>
 
             {/* Right: order summary */}
-            <aside className="order-summary">
+            <aside className="order-summary" aria-label="Order summary">
               <h3>Order summary</h3>
 
               <div className="summary-item">

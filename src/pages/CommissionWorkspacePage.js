@@ -132,7 +132,7 @@ function CommissionWorkspacePage() {
 
               <div className="info-card">
                 <h3>Version history</h3>
-                <p style={{ fontSize: '0.85rem', color: '#888' }}>
+                <p style={{ fontSize: '0.85rem', color: '#555' }}>
                   No proofs uploaded yet
                 </p>
               </div>

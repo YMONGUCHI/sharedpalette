@@ -24,7 +24,7 @@ function ProductPage() {
       <main className="product-page">
         <div className="product-inner">
 
-          <nav className="breadcrumb">
+          <nav className="breadcrumb" aria-label = "Breadcrumb">
             <Link to="/browse">Browse</Link> › <Link to="/browse">{product.specialty}</Link> › <span>{product.artistName}</span>
           </nav>
 

@@ -73,7 +73,7 @@ function BrowsePage() {
                 <div className="browse-inner">
 
                     {/* Left sidebar with filters */}
-                    <aside className="filter-sidebar">
+                    <aside className="filter-sidebar" aria-label="Filters">
                         <h3 className="sidebar-title">Filters</h3>
 
                         <div className="filter-group">
@@ -216,7 +216,7 @@ function BrowsePage() {
                     <section className="browse-results">
                         <div className="results-header">
                             <p>Showing {filteredListings.length} results</p>
-                            <select className="sort-dropdown">
+                            <select className="sort-dropdown" aria-label="Sort listings">
                                 <option>Sort: Relevance</option>
                                 <option>Sort: Price (low to high)</option>
                                 <option>Sort: Price (high to low)</option>
